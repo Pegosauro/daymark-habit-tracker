@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.npm-cache/
+.tmp-qa/
+qa/
+generated_images/
+*.zip
+*.tsbuildinfo
