@@ -1,32 +1,33 @@
 # Daymark
 
-A calm, local-first habit tracker built with React, TypeScript, Vite, and Vinext.
+Un habit tracker semplice e locale, realizzato con React, TypeScript, Vite e Vinext.
 
-## Live app
+## App online
 
-[Open Daymark Habit Tracker](https://daymark-habit-tracker.pegosauro.chatgpt.site)
+[Apri Daymark Habit Tracker](https://daymark-habit-tracker.pegosauro.chatgpt.site)
 
-[Open the GitHub Pages version](https://pegosauro.github.io/daymark-habit-tracker/)
+[Apri la versione su GitHub Pages](https://pegosauro.github.io/daymark-habit-tracker/)
 
-## Features
+## Funzionalità
 
-- Daily habit completion with date navigation
-- Editable weekly completion grid
-- Add, edit, and delete habits
-- Current and best streak calculations
-- Four-week insights view
-- Browser-local persistence with no account or backend
-- Responsive desktop and mobile layouts
+- Completamento giornaliero delle abitudini con navigazione per data
+- Griglia settimanale interattiva
+- Creazione, modifica ed eliminazione delle abitudini
+- Calcolo delle serie attuali e migliori
+- Statistiche sulle ultime quattro settimane
+- Persistenza locale nel browser, senza account o backend
+- Layout responsive per desktop e dispositivi mobili
+- Avvio senza dati dimostrativi
 
-## Run locally
+## Avvio in locale
 
 ```bash
 npm install
 npm run dev
 ```
 
-Use `npm run build` to create the production bundle.
+Usa `npm run build` per creare il bundle di produzione.
 
-Use `npm run build:pages` to create the static GitHub Pages bundle.
+Usa `npm run build:pages` per creare il bundle statico per GitHub Pages.
 
-All habit data is stored locally in the browser; no account or backend is required.
+Tutti i dati delle abitudini vengono salvati localmente nel browser; non servono account o backend.

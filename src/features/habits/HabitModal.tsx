@@ -5,6 +5,13 @@ import type { Habit, HabitColor, HabitDraft, HabitIcon } from '../../types'
 
 const icons: HabitIcon[] = ['walk', 'water', 'book', 'stretch', 'plan', 'meditate', 'heart']
 const colors: HabitColor[] = ['sage', 'coral', 'lavender', 'sky', 'sun']
+const iconLabels: Record<HabitIcon, string> = {
+  walk: 'Camminata', water: 'Acqua', book: 'Lettura', stretch: 'Stretching',
+  plan: 'Pianificazione', meditate: 'Meditazione', heart: 'Benessere',
+}
+const colorLabels: Record<HabitColor, string> = {
+  sage: 'Verde salvia', coral: 'Corallo', lavender: 'Lavanda', sky: 'Azzurro', sun: 'Giallo',
+}
 
 interface HabitModalProps {
   habit?: Habit | null
@@ -40,24 +47,24 @@ export function HabitModal({ habit, onClose, onSave }: HabitModalProps) {
       <section className="modal" role="dialog" aria-modal="true" aria-labelledby="habit-modal-title">
         <div className="modal__header">
           <div>
-            <h2 id="habit-modal-title">{habit ? 'Edit habit' : 'Add a habit'}</h2>
-            <p>Make it small enough to show up for.</p>
+            <h2 id="habit-modal-title">{habit ? 'Modifica abitudine' : 'Aggiungi un’abitudine'}</h2>
+            <p>Scegli un gesto semplice, facile da ripetere.</p>
           </div>
-          <button className="icon-button" type="button" onClick={onClose} aria-label="Close dialog"><X size={22} /></button>
+          <button className="icon-button" type="button" onClick={onClose} aria-label="Chiudi finestra"><X size={22} /></button>
         </div>
         <form onSubmit={submit}>
           <label className="field">
-            <span>Habit name</span>
+            <span>Nome dell’abitudine</span>
             <input
               autoFocus
               value={draft.name}
               maxLength={48}
-              placeholder="e.g. Take a lunchtime walk"
+              placeholder="Es. Fare una passeggiata dopo pranzo"
               onChange={(event) => setDraft({ ...draft, name: event.target.value })}
             />
           </label>
           <fieldset className="choice-group">
-            <legend>Icon</legend>
+            <legend>Icona</legend>
             <div className="icon-choices">
               {icons.map((icon) => (
                 <button
@@ -65,7 +72,7 @@ export function HabitModal({ habit, onClose, onSave }: HabitModalProps) {
                   className={draft.icon === icon ? 'is-selected' : ''}
                   type="button"
                   onClick={() => setDraft({ ...draft, icon })}
-                  aria-label={`${icon} icon`}
+                  aria-label={`Icona ${iconLabels[icon]}`}
                   aria-pressed={draft.icon === icon}
                 >
                   <HabitGlyph icon={icon} size={23} />
@@ -74,7 +81,7 @@ export function HabitModal({ habit, onClose, onSave }: HabitModalProps) {
             </div>
           </fieldset>
           <fieldset className="choice-group">
-            <legend>Color</legend>
+            <legend>Colore</legend>
             <div className="color-choices">
               {colors.map((color) => (
                 <button
@@ -83,7 +90,7 @@ export function HabitModal({ habit, onClose, onSave }: HabitModalProps) {
                   data-color={color}
                   type="button"
                   onClick={() => setDraft({ ...draft, color })}
-                  aria-label={`${color} color`}
+                  aria-label={`Colore ${colorLabels[color]}`}
                   aria-pressed={draft.color === color}
                 >
                   {draft.color === color && <Check size={16} />}
@@ -92,9 +99,9 @@ export function HabitModal({ habit, onClose, onSave }: HabitModalProps) {
             </div>
           </fieldset>
           <div className="modal__actions">
-            <button className="button button--secondary" type="button" onClick={onClose}>Cancel</button>
+            <button className="button button--secondary" type="button" onClick={onClose}>Annulla</button>
             <button className="button button--primary" type="submit" disabled={!draft.name.trim()}>
-              {habit ? 'Save changes' : 'Add habit'}
+              {habit ? 'Salva modifiche' : 'Aggiungi abitudine'}
             </button>
           </div>
         </form>

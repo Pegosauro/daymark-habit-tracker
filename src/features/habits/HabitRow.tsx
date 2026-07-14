@@ -31,7 +31,7 @@ export function HabitRow({ habit, completed, streak, onToggle, onEdit, onDelete 
         className="habit-row__check"
         type="button"
         onClick={onToggle}
-        aria-label={completed ? `Mark ${habit.name} incomplete` : `Complete ${habit.name}`}
+        aria-label={completed ? `Segna ${habit.name} come non completata` : `Completa ${habit.name}`}
         aria-pressed={completed}
       >
         {completed && <Check size={26} strokeWidth={2.4} />}
@@ -39,14 +39,14 @@ export function HabitRow({ habit, completed, streak, onToggle, onEdit, onDelete 
       <span className="habit-row__glyph"><HabitGlyph icon={habit.icon} /></span>
       <div className="habit-row__copy">
         <h3>{habit.name}</h3>
-        <p>Daily <span aria-hidden="true">•</span> {streak} day streak</p>
+        <p>Ogni giorno <span aria-hidden="true">•</span> {streak} {streak === 1 ? 'giorno consecutivo' : 'giorni consecutivi'}</p>
       </div>
       <div className="habit-row__menu" ref={menuRef}>
         <button
           className="icon-button"
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          aria-label={`Actions for ${habit.name}`}
+          aria-label={`Azioni per ${habit.name}`}
           aria-expanded={menuOpen}
         >
           <MoreHorizontal size={22} />
@@ -54,10 +54,10 @@ export function HabitRow({ habit, completed, streak, onToggle, onEdit, onDelete 
         {menuOpen && (
           <div className="context-menu" role="menu">
             <button type="button" role="menuitem" onClick={() => { onEdit(); setMenuOpen(false) }}>
-              <Pencil size={16} /> Edit
+              <Pencil size={16} /> Modifica
             </button>
             <button className="is-danger" type="button" role="menuitem" onClick={() => { onDelete(); setMenuOpen(false) }}>
-              <Trash2 size={16} /> Delete
+              <Trash2 size={16} /> Elimina
             </button>
           </div>
         )}

@@ -44,7 +44,7 @@ export function isFuture(date: Date): boolean {
 }
 
 export function formatLongDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('it-IT', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -54,8 +54,8 @@ export function formatLongDate(date: Date): string {
 export function formatWeekRange(week: Date[]): string {
   const first = week[0]
   const last = week[6]
-  const start = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(first)
-  const end = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(last)
+  const start = new Intl.DateTimeFormat('it-IT', { month: 'short', day: 'numeric' }).format(first)
+  const end = new Intl.DateTimeFormat('it-IT', { month: 'short', day: 'numeric' }).format(last)
   return `${start} – ${end}`
 }
 

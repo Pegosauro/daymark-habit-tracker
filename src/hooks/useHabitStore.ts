@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { createInitialLogs, initialHabits } from '../data'
 import type { Habit, HabitDraft, HabitLog } from '../types'
 import { addDays, fromDateKey, toDateKey } from '../utils/date'
 
-const HABITS_KEY = 'daymark.habits.v1'
-const LOGS_KEY = 'daymark.logs.v1'
+const HABITS_KEY = 'daymark.habits.v2'
+const LOGS_KEY = 'daymark.logs.v2'
+const EMPTY_HABITS: Habit[] = []
+const EMPTY_LOGS: HabitLog = {}
 
 function loadValue<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback
@@ -17,8 +18,8 @@ function loadValue<T>(key: string, fallback: T): T {
 }
 
 export function useHabitStore() {
-  const [habits, setHabits] = useState<Habit[]>(() => loadValue(HABITS_KEY, initialHabits))
-  const [logs, setLogs] = useState<HabitLog>(() => loadValue(LOGS_KEY, createInitialLogs()))
+  const [habits, setHabits] = useState<Habit[]>(() => loadValue(HABITS_KEY, EMPTY_HABITS))
+  const [logs, setLogs] = useState<HabitLog>(() => loadValue(LOGS_KEY, EMPTY_LOGS))
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -42,9 +43,15 @@ export function useHabitStore() {
   }, [])
 
   const addHabit = useCallback((draft: HabitDraft) => {
+    const slug = draft.name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
     const habit: Habit = {
       ...draft,
-      id: `${draft.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${Date.now()}`,
+      id: `${slug || 'abitudine'}-${Date.now()}`,
       createdAt: toDateKey(new Date()),
     }
     setHabits((current) => [...current, habit])
@@ -65,9 +72,9 @@ export function useHabitStore() {
     })
   }, [])
 
-  const resetData = useCallback(() => {
-    setHabits(initialHabits)
-    setLogs(createInitialLogs())
+  const clearData = useCallback(() => {
+    setHabits([])
+    setLogs({})
   }, [])
 
   const getStreak = useCallback((habitId: string, from = new Date()) => {
@@ -113,7 +120,7 @@ export function useHabitStore() {
     addHabit,
     updateHabit,
     deleteHabit,
-    resetData,
+    clearData,
     getStreak,
     bestStreak,
     totalCompletions,

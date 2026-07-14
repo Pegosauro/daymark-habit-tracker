@@ -119,6 +119,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(101, 169, 22
 .week-day span { font-size: 11px; font-weight: 600; }
 .week-day strong { font-size: 13px; }
 .week-grid__row { display: contents; }
+.week-grid__empty { grid-column: 1 / -1; min-height: 136px; display: grid; place-items: center; padding: 20px; color: var(--muted); text-align: center; line-height: 1.5; }
 .week-grid__habit { display: flex; align-items: center; min-width: 0; color: var(--muted); font-size: 12px; }
 .week-grid__habit > span:first-child { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: var(--habit-color); margin-right: 8px; }
 .week-grid__habit > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -173,11 +174,12 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(101, 169, 22
 .section-heading p { color: var(--muted); margin: 5px 0 0; font-size: 14px; }
 .rhythm-chart { height: 210px; margin-top: 40px; display: grid; grid-template-columns: repeat(28, 1fr); gap: 8px; align-items: end; border-bottom: 1px solid var(--line); background: repeating-linear-gradient(to top, transparent 0, transparent 51px, #eef0ed 52px); }
 .rhythm-chart__day { height: 100%; display: flex; align-items: flex-end; }
-.rhythm-chart__day span { display: block; width: 100%; min-height: 8px; border-radius: 4px 4px 0 0; background: var(--green); opacity: .83; }
+.rhythm-chart__day span { display: block; width: 100%; min-height: 0; border-radius: 4px 4px 0 0; background: var(--green); opacity: .83; }
 .rhythm-chart__labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-top: 9px; }
 .habit-insights { margin-top: 62px; }
 .best-note { color: var(--green); font-size: 12px; font-weight: 700; }
 .habit-insights__list { margin-top: 22px; border-top: 1px solid var(--line); }
+.insights-empty { min-height: 150px; display: grid; place-items: center; padding: 24px; color: var(--muted); text-align: center; border-bottom: 1px solid var(--line); }
 .habit-insights__list article { --habit-color: var(--green); min-height: 84px; display: grid; grid-template-columns: 56px minmax(190px, .8fr) minmax(180px, 1.2fr) 60px; gap: 18px; align-items: center; border-bottom: 1px solid var(--line); }
 .habit-insights__icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; color: var(--habit-color); background: color-mix(in srgb, var(--habit-color) 10%, white); }
 .habit-insights h3 { margin: 0 0 2px; font: 600 15px var(--font-display); }

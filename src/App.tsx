@@ -28,7 +28,11 @@ function App() {
   }
 
   const deleteHabit = (habit: Habit) => {
-    if (window.confirm(`Delete “${habit.name}”? Its check-ins will also be removed.`)) store.deleteHabit(habit.id)
+    if (window.confirm(`Eliminare “${habit.name}”? Verranno cancellati anche tutti i completamenti associati.`)) store.deleteHabit(habit.id)
+  }
+
+  const clearData = () => {
+    if (window.confirm('Eliminare tutte le abitudini e tutti i completamenti? Questa azione non può essere annullata.')) store.clearData()
   }
 
   if (view === 'insights') {
@@ -41,7 +45,7 @@ function App() {
           totalCompletions={store.totalCompletions}
           bestStreak={store.bestStreak}
           onBack={() => setView('today')}
-          onReset={store.resetData}
+          onClear={clearData}
         />
       </div>
     )
@@ -54,12 +58,12 @@ function App() {
         <section className="today-hero">
           <div>
             <div className="date-control">
-              <button className="icon-button" type="button" onClick={() => selectDate(addDays(selectedDate, -1))} aria-label="Previous day"><ChevronLeft size={20} /></button>
-              <button className="today-shortcut" type="button" onClick={() => setSelectedDate(new Date())} disabled={selectedIsToday}>Today</button>
-              <button className="icon-button" type="button" onClick={() => selectDate(addDays(selectedDate, 1))} disabled={selectedIsToday} aria-label="Next day"><ChevronRight size={20} /></button>
+              <button className="icon-button" type="button" onClick={() => selectDate(addDays(selectedDate, -1))} aria-label="Giorno precedente"><ChevronLeft size={20} /></button>
+              <button className="today-shortcut" type="button" onClick={() => setSelectedDate(new Date())} disabled={selectedIsToday}>Oggi</button>
+              <button className="icon-button" type="button" onClick={() => selectDate(addDays(selectedDate, 1))} disabled={selectedIsToday} aria-label="Giorno successivo"><ChevronRight size={20} /></button>
             </div>
             <h1>{formatLongDate(selectedDate)}</h1>
-            <p>{selectedIsToday ? 'Small steps, clearly seen.' : 'A day worth noticing.'}</p>
+            <p>{selectedIsToday ? 'Piccoli passi, progressi visibili.' : 'Un giorno che merita attenzione.'}</p>
           </div>
           <ProgressRing value={progress} />
         </section>
@@ -67,8 +71,8 @@ function App() {
         <div className="today-layout">
           <section className="habit-section" aria-labelledby="rhythm-title">
             <div className="habit-section__header">
-              <div><h2 id="rhythm-title">{selectedIsToday ? 'Today’s rhythm' : 'Daily rhythm'}</h2><span>{completed.length} of {store.habits.length} complete</span></div>
-              <button className="button button--primary" type="button" onClick={() => setEditingHabit(null)}><Plus size={19} /> Add habit</button>
+              <div><h2 id="rhythm-title">{selectedIsToday ? 'Il ritmo di oggi' : 'Il ritmo del giorno'}</h2><span>{completed.length} di {store.habits.length} {completed.length === 1 ? 'completata' : 'completate'}</span></div>
+              <button className="button button--primary" type="button" onClick={() => setEditingHabit(null)}><Plus size={19} /> Aggiungi abitudine</button>
             </div>
             <div className="habit-list">
               {store.habits.map((habit) => (
@@ -83,7 +87,7 @@ function App() {
                 />
               ))}
               {store.habits.length === 0 && (
-                <div className="empty-state"><h3>Start with one small habit.</h3><p>The best routine is one you can return to.</p><button type="button" onClick={() => setEditingHabit(null)}>Add your first habit</button></div>
+                <div className="empty-state"><h3>Inizia con una piccola abitudine.</h3><p>La routine migliore è quella a cui puoi tornare.</p><button type="button" onClick={() => setEditingHabit(null)}>Aggiungi la prima abitudine</button></div>
               )}
             </div>
           </section>

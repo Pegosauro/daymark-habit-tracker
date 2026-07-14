@@ -16,8 +16,8 @@ export function WeekPanel({ habits, logs, week, selectedDate, onSelectDate, onTo
   return (
     <aside className="week-panel" aria-labelledby="week-title">
       <div className="week-panel__header">
-        <h2 id="week-title">This week</h2>
-        <span>{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(week[0])}</span>
+        <h2 id="week-title">Questa settimana</h2>
+        <span>{new Intl.DateTimeFormat('it-IT', { month: 'short' }).format(week[0])}</span>
       </div>
       <div className="week-grid">
         <div className="week-grid__corner" />
@@ -27,9 +27,9 @@ export function WeekPanel({ habits, logs, week, selectedDate, onSelectDate, onTo
             className={`week-day ${isSameDay(date, selectedDate) ? 'is-selected' : ''}`}
             type="button"
             onClick={() => onSelectDate(date)}
-            aria-label={`Select ${date.toDateString()}`}
+            aria-label={`Seleziona ${new Intl.DateTimeFormat('it-IT', { dateStyle: 'full' }).format(date)}`}
           >
-            <span>{new Intl.DateTimeFormat('en-US', { weekday: 'narrow' }).format(date)}</span>
+            <span>{new Intl.DateTimeFormat('it-IT', { weekday: 'narrow' }).format(date)}</span>
             <strong>{date.getDate()}</strong>
           </button>
         ))}
@@ -50,17 +50,20 @@ export function WeekPanel({ habits, logs, week, selectedDate, onSelectDate, onTo
                   type="button"
                   disabled={future}
                   onClick={() => onToggle(habit.id, date)}
-                  aria-label={`${complete ? 'Clear' : 'Complete'} ${habit.name} on ${date.toDateString()}`}
+                  aria-label={`${complete ? 'Rimuovi il completamento di' : 'Completa'} ${habit.name} per ${new Intl.DateTimeFormat('it-IT', { dateStyle: 'full' }).format(date)}`}
                   aria-pressed={complete}
                 />
               )
             })}
           </div>
         ))}
+        {habits.length === 0 && (
+          <div className="week-grid__empty">Aggiungi un’abitudine per iniziare a tracciare la settimana.</div>
+        )}
       </div>
       <div className="week-panel__footer">
-        <p><Sun size={22} strokeWidth={1.9} /> <span>You’re building momentum—keep showing up.</span></p>
-        <button type="button" onClick={onOpenInsights}>View insights <ArrowRight size={18} /></button>
+        <p><Sun size={22} strokeWidth={1.9} /> <span>La costanza cresce un giorno alla volta.</span></p>
+        <button type="button" onClick={onOpenInsights}>Vedi statistiche <ArrowRight size={18} /></button>
       </div>
     </aside>
   )

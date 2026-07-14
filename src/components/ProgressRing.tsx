@@ -4,7 +4,7 @@ export function ProgressRing({ value }: { value: number }) {
   const dash = circumference * (value / 100)
 
   return (
-    <div className="progress-ring" aria-label={`${value}% daily progress`}>
+    <div className="progress-ring" aria-label={`Progresso giornaliero: ${value}%`}>
       <svg viewBox="0 0 128 128" role="img">
         <circle className="progress-ring__track" cx="64" cy="64" r={radius} />
         <circle
@@ -17,7 +17,7 @@ export function ProgressRing({ value }: { value: number }) {
       </svg>
       <div className="progress-ring__label">
         <strong>{value}%</strong>
-        <span>Daily progress</span>
+        <span>Progresso di oggi</span>
       </div>
     </div>
   )
